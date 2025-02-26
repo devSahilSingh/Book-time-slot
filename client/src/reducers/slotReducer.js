@@ -1,3 +1,4 @@
+// initial state for slot reducer
 const initialState = {
   slots: Array.from({ length: 9 }, (_, i) => ({
     time: `${9 + i}:00 - ${10 + i}:00`,

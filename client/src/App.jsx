@@ -10,7 +10,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <div>
-          <h3 className="text-center mb-3 p-1">Time Slot Booking</h3>
+          <h3 className="text-center mb-3 pt-3">Time Slot Booking</h3>
           <Routes>
             <Route path="/" element={<SlotList />} />
             <Route path="/details/:index" element={<DetailsScreen />} />

@@ -5,7 +5,6 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
 function DetailsScreen() {
-  const API_URL = "http://localhost:5000/slots";
   const { index } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,9 +16,10 @@ function DetailsScreen() {
   const [errors, setErrors] = useState({});
   const [editSlotDetail, setEditSlotDetail] = useState({});
 
+  //Get the detail of the booking slot via index
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/slots/index/${index}`)
+      .get(`${import.meta.env.VITE_API_URL}/slots/index/${index}`)
       .then((response) => {
         setEditSlotDetail(response.data);
         const { user } = response.data;
@@ -35,6 +35,8 @@ function DetailsScreen() {
       });
   }, []);
 
+
+  // Validate the booking slot form
   const validateForm = () => {
     let newErrors = {};
 
@@ -50,17 +52,20 @@ function DetailsScreen() {
     return Object.keys(newErrors).length === 0;
   };
 
+  // Save and update the booking slot
   const handleSave = async () => {
     if (!validateForm()) return;
 
+    // Update the booking slot if it already exists
     if (slot?._id || editSlotDetail?._id) {
-      // Updating an existing slot
       const updatedSlot = { ...slot, booked: true, user: { ...user } };
       dispatch({ type: "BOOK_SLOT_REQUEST" });
 
       try {
         await axios.put(
-          `${API_URL}/${slot?._id || editSlotDetail?._id}`,
+          `${import.meta.env.VITE_API_URL}/slots/${
+            slot?._id || editSlotDetail?._id
+          }`,
           updatedSlot
         );
         dispatch({ type: "BOOK_SLOT_SUCCESS", payload: updatedSlot });
@@ -69,20 +74,21 @@ function DetailsScreen() {
         dispatch({ type: "BOOK_SLOT_FAILURE", payload: error.message });
       }
     } else {
-      // Creating a new slot (fix to prevent overwriting all slots)
+      // Save the booking slot
       const updatedSlot = {
         id: uuidv4(),
         index: Number(index),
         booked: true,
-        time: slot?.time || "Default Time", // Ensure time is set properly
+        time: slot?.time || "Default Time",
         user: { ...user },
       };
-
       dispatch({ type: "BOOK_SLOT_REQUEST" });
-
       try {
-        const response = await axios.post(API_URL, updatedSlot);
-        dispatch({ type: "BOOK_SLOT_SUCCESS", payload: response.data }); // Ensure only new data is added
+        const response = await axios.post(
+          `${import.meta.env.VITE_API_URL}/slots`,
+          updatedSlot
+        );
+        dispatch({ type: "BOOK_SLOT_SUCCESS", payload: response.data });
         navigate("/");
       } catch (error) {
         dispatch({ type: "BOOK_SLOT_FAILURE", payload: error.message });

@@ -9,9 +9,10 @@ function SlotList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Get all the booking slots
   useEffect(() => {
     axios
-      .get("http://localhost:5000/slots")
+      .get(`${import.meta.env.VITE_API_URL}/slots`)
       .then((response) => {
         dispatch({ type: "UPDATE_SLOTS", payload: response.data });
       })
@@ -20,9 +21,10 @@ function SlotList() {
       });
   }, [dispatch]);
 
+  // Clear the booking slot
   const handleClear = (id, index) => {
     axios
-      .delete(`http://localhost:5000/slots/${id}`)
+      .delete(`${import.meta.env.VITE_API_URL}/slots/${id}`)
       .then(() => {
         dispatch({ type: "CLEAR_SLOT", payload: { index } });
       })

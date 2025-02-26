@@ -45,8 +45,7 @@ button:focus-visible {
 .slot-wrapper {
   background-color: #fff;
   border-radius: 20px;
-  width: 70% !important;
-  max-width: 500px;
+  width: 40% !important;
   margin: auto;
   padding: 20px;
 }
@@ -62,7 +61,7 @@ button:focus-visible {
 .slot-detail-wrapper {
   background-color: #fff;
   border-radius: 20px;
-  width: 55% !important;
+  width: 40% !important;
   height: auto !important;
   margin: auto !important;
   padding: 25px !important;
@@ -83,24 +82,33 @@ button:focus-visible {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 920px) {
   .slot-wrapper {
-    width: 95%;
-    max-width: 400px;
+    width: 95% !important;
+    max-width: 400px !important;
   }
-  
+
   .slot-box {
-    max-width: 100%;
+    width: 80% !important;
+    max-width: 360px !important;
+  }
+  .slot-detail-wrapper {
+    width: 70% !important;
   }
 }
 
 @media (max-width: 480px) {
   .slot-wrapper {
-    width: 100%;
-    padding: 15px;
+    width: 80% !important;
   }
 
   .slot-box {
-    font-size: 14px; /* Adjust font for small screens */
+    width: 80% !important;
+    max-width: 260px !important;
+    font-size: 14px;
+  }
+
+  .slot-detail-wrapper {
+    width: 90% !important;
   }
 }
