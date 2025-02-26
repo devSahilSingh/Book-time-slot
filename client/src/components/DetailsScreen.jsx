@@ -17,8 +17,6 @@ function DetailsScreen() {
   const [errors, setErrors] = useState({});
   const [editSlotDetail, setEditSlotDetail] = useState({});
 
-  console.log("Slot:", user);
-
   useEffect(() => {
     axios
       .get(`http://localhost:5000/slots/index/${index}`)

@@ -13,8 +13,6 @@ function SlotList() {
     axios
       .get("http://localhost:5000/slots")
       .then((response) => {
-        console.log("API Response:", response.data);
-
         dispatch({ type: "UPDATE_SLOTS", payload: response.data });
       })
       .catch((error) => {
